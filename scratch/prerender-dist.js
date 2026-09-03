@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { toolsRegistry } from '../client/src/registry/tools.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,22 +20,7 @@ if (!fs.existsSync(templatePath)) {
 
 const templateHtml = fs.readFileSync(templatePath, 'utf8');
 
-// Read tools data from tools.js
-const toolsFilePath = path.resolve(rootDir, 'client/src/registry/tools.js');
-const toolsContent = fs.readFileSync(toolsFilePath, 'utf8');
-
-// Extract active tools info using regex parser
-const activeTools = [];
-const toolBlockMatches = [...toolsContent.matchAll(/id:\s*['"]([^'"]+)['"][\s\S]*?name:\s*['"]([^'"]+)['"][\s\S]*?slug:\s*['"]([^'"]+)['"][\s\S]*?description:\s*['"]([^'"]+)['"][\s\S]*?status:\s*['"]active['"]/g)];
-
-toolBlockMatches.forEach(m => {
-  activeTools.push({
-    id: m[1],
-    name: m[2],
-    slug: m[3],
-    description: m[4]
-  });
-});
+const activeTools = toolsRegistry.filter(t => t.status === 'active');
 
 const pagesToPrerender = [
   { route: '', title: 'HMDevTools — Developer tools that just work.', desc: 'Fast, private, practical online developer utilities. Format JSON, convert timestamps, generate UUIDs, encode Base64, debug regex, and more.', h1: 'Developer tools that just work.' },
@@ -57,8 +43,8 @@ const pagesToPrerender = [
 activeTools.forEach(t => {
   pagesToPrerender.push({
     route: `/tools/${t.slug}`,
-    title: `${t.name} Online | HMDevTools`,
-    desc: t.description,
+    title: t.seoTitle || `${t.name} Online | HMDevTools`,
+    desc: t.seoDescription || t.description,
     h1: t.name
   });
 });

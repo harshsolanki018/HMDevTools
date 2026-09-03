@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { toolsRegistry } from '../client/src/registry/tools.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -8,13 +9,7 @@ const rootDir = path.resolve(__dirname, '..');
 
 const domain = 'https://hmdevtools.com';
 
-// Read tools registry
-const toolsFilePath = path.resolve(rootDir, 'client/src/registry/tools.js');
-const toolsFileContent = fs.readFileSync(toolsFilePath, 'utf8');
-
-// Extract active tool slugs using regex
-const activeSlugMatches = [...toolsFileContent.matchAll(/slug:\s*['"]([^'"]+)['"][\s\S]*?status:\s*['"]active['"]/g)];
-const activeSlugs = activeSlugMatches.map(m => m[1]);
+const activeSlugs = toolsRegistry.filter(t => t.status === 'active').map(t => t.slug);
 
 const staticPages = [
   '',
