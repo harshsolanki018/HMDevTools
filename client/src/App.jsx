@@ -11,6 +11,7 @@ import Categories from './pages/Categories';
 import About from './pages/About';
 import HowItWorks from './pages/HowItWorks';
 import Resources from './pages/Resources';
+import ResourceDetail from './pages/ResourceDetail';
 import Blog from './pages/Blog';
 import Changelog from './pages/Changelog';
 import Roadmap from './pages/Roadmap';
@@ -60,6 +61,7 @@ export function App() {
           <Route path="/about" element={<About />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/resources/:slug" element={<ResourceDetail />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/changelog" element={<Changelog />} />
           <Route path="/roadmap" element={<Roadmap />} />

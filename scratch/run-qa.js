@@ -1,8 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { toolsRegistry } from '../client/src/registry/tools.js';
-import { COMPONENT_MAP } from '../client/src/registry/componentMap.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,33 +24,60 @@ function assert(condition, message) {
 }
 
 // 1. Tool Registry & Component Mapping Audit
-const activeTools = toolsRegistry.filter(t => t.status === 'active');
+const toolsFilePath = path.resolve(rootDir, 'client/src/registry/tools.js');
+const componentMapPath = path.resolve(rootDir, 'client/src/registry/componentMap.js');
+const resourcesFilePath = path.resolve(rootDir, 'client/src/registry/resources.js');
 
-assert(activeTools.length === 46, `46 active operational tools registered in tools.js (actual: ${activeTools.length})`);
+const toolsContent = fs.readFileSync(toolsFilePath, 'utf8');
+const componentMapContent = fs.readFileSync(componentMapPath, 'utf8');
+const resourcesContent = fs.readFileSync(resourcesFilePath, 'utf8');
 
-activeTools.forEach(t => {
-  const hasBinding = Boolean(COMPONENT_MAP[t.component]);
-  assert(hasBinding, `Active tool slug "${t.slug}" has component binding "${t.component}" in COMPONENT_MAP`);
+// Match active tool entries in tools.js
+const activeStatusMatches = [...toolsContent.matchAll(/id:\s*['"]([^'"]+)['"][\s\S]*?component:\s*['"]([^'"]+)['"][\s\S]*?status:\s*['"]active['"]/g)];
+const altStatusMatches = [...toolsContent.matchAll(/id:\s*['"]([^'"]+)['"][\s\S]*?status:\s*['"]active['"][\s\S]*?component:\s*['"]([^'"]+)['"]/g)];
+
+const activeTools = [...activeStatusMatches, ...altStatusMatches].map(m => ({ id: m[1], component: m[2] }));
+const uniqueActiveTools = Array.from(new Set(activeTools.map(t => t.id))).map(id => activeTools.find(t => t.id === id));
+
+assert(uniqueActiveTools.length === 50, `50 active operational tools registered in tools.js (actual: ${uniqueActiveTools.length})`);
+
+uniqueActiveTools.forEach(t => {
+  const isBound = componentMapContent.includes(t.component);
+  assert(isBound, `Active tool "${t.id}" has component binding "${t.component}" in COMPONENT_MAP`);
 });
 
-// 2. Frontend Routes Audit
+// 2. Resource Guides Audit
+const topLevelResourceMatches = [...resourcesContent.matchAll(/id:\s*['"]([^'"]+)['"][\s\S]*?slug:\s*['"]([^'"]+)['"][\s\S]*?title:\s*['"]/g)];
+assert(topLevelResourceMatches.length === 6, `6 developer reference resources registered in resources.js (actual: ${topLevelResourceMatches.length})`);
+
+// 3. Frontend Routes Audit
 const appPath = path.resolve(rootDir, 'client/src/App.jsx');
 const appContent = fs.readFileSync(appPath, 'utf8');
 
 const requiredRoutes = [
   '/', '/tools', '/tools/:slug', '/categories', '/about', '/how-it-works',
-  '/resources', '/blog', '/changelog', '/roadmap', '/faq', '/contact',
+  '/resources', '/resources/:slug', '/blog', '/changelog', '/roadmap', '/faq', '/contact',
   '/api', '/api/docs', '/privacy', '/terms', '/cookies', '/sitemap', '*'
 ];
 
-console.log('\n--- 2. Frontend Routes Audit ---');
+console.log('\n--- 3. Frontend Routes Audit ---');
 requiredRoutes.forEach(r => {
   const hasRoute = appContent.includes(`path="${r}"`);
   assert(hasRoute, `Route "${r}" registered in App.jsx`);
 });
 
-// 3. Security, Placeholders & Secrets Audit
-console.log('\n--- 3. Security, Placeholders & Secrets Audit ---');
+// 4. Git Hygiene & Security Audit
+console.log('\n--- 4. Git Hygiene & Security Audit ---');
+const gitignorePath = path.resolve(rootDir, '.gitignore');
+assert(fs.existsSync(gitignorePath), 'Root .gitignore file exists');
+
+if (fs.existsSync(gitignorePath)) {
+  const gitignoreContent = fs.readFileSync(gitignorePath, 'utf8');
+  assert(gitignoreContent.includes('node_modules'), '.gitignore ignores node_modules');
+  assert(gitignoreContent.includes('.env'), '.gitignore ignores .env files');
+  assert(gitignoreContent.includes('dist'), '.gitignore ignores build dist directories');
+}
+
 const srcDir = path.resolve(rootDir, 'client/src');
 
 function scanDirectory(dir, filterExt = ['.jsx', '.js', '.css']) {

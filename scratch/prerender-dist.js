@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { toolsRegistry } from '../client/src/registry/tools.js';
+import { resourcesRegistry } from '../client/src/registry/resources.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,6 +40,16 @@ const pagesToPrerender = [
   { route: '/sitemap', title: 'HTML Sitemap — HMDevTools', desc: 'Index of all HMDevTools pages and active tools.' }
 ];
 
+// Add Resource detail pages
+resourcesRegistry.forEach(r => {
+  pagesToPrerender.push({
+    route: `/resources/${r.slug}`,
+    title: r.seoTitle,
+    desc: r.seoDescription,
+    h1: r.title
+  });
+});
+
 // Add active tool pages
 activeTools.forEach(t => {
   pagesToPrerender.push({
@@ -71,4 +82,4 @@ pagesToPrerender.forEach(p => {
   count++;
 });
 
-console.log(`✓ Prerendered ${count} static HTML pages in client/dist/! (14 Static Pages + ${activeTools.length} Active Tools)`);
+console.log(`✓ Prerendered ${count} static HTML pages in client/dist/! (14 Static Pages + ${resourcesRegistry.length} Resources + ${activeTools.length} Active Tools)`);

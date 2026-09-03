@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { toolsRegistry } from '../client/src/registry/tools.js';
+import { resourcesRegistry } from '../client/src/registry/resources.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,7 +10,8 @@ const rootDir = path.resolve(__dirname, '..');
 
 const domain = 'https://hmdevtools.com';
 
-const activeSlugs = toolsRegistry.filter(t => t.status === 'active').map(t => t.slug);
+const activeToolSlugs = toolsRegistry.filter(t => t.status === 'active').map(t => t.slug);
+const resourceSlugs = resourcesRegistry.map(r => r.slug);
 
 const staticPages = [
   '',
@@ -43,8 +45,18 @@ staticPages.forEach(p => {
   xml += `  </url>\n`;
 });
 
+// Resource pages
+resourceSlugs.forEach(slug => {
+  xml += `  <url>\n`;
+  xml += `    <loc>${domain}/resources/${slug}</loc>\n`;
+  xml += `    <lastmod>${today}</lastmod>\n`;
+  xml += `    <changefreq>weekly</changefreq>\n`;
+  xml += `    <priority>0.85</priority>\n`;
+  xml += `  </url>\n`;
+});
+
 // Active Tool pages
-activeSlugs.forEach(slug => {
+activeToolSlugs.forEach(slug => {
   xml += `  <url>\n`;
   xml += `    <loc>${domain}/tools/${slug}</loc>\n`;
   xml += `    <lastmod>${today}</lastmod>\n`;
@@ -58,4 +70,5 @@ xml += `</urlset>\n`;
 const sitemapPath = path.resolve(rootDir, 'client/public/sitemap.xml');
 fs.writeFileSync(sitemapPath, xml, 'utf8');
 
-console.log(`✓ Reconciled Sitemap generated at ${sitemapPath} with ${staticPages.length + activeSlugs.length} indexable URLs!`);
+const totalCount = staticPages.length + resourceSlugs.length + activeToolSlugs.length;
+console.log(`✓ Reconciled Sitemap generated at ${sitemapPath} with ${totalCount} indexable URLs! (${staticPages.length} Static + ${resourceSlugs.length} Resources + ${activeToolSlugs.length} Active Tools)`);
