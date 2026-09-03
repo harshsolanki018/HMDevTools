@@ -29,7 +29,8 @@ const staticPages = [
   '/api/docs',
   '/privacy',
   '/terms',
-  '/cookies'
+  '/cookies',
+  '/sitemap'
 ];
 
 const today = new Date().toISOString().split('T')[0];
@@ -62,4 +63,4 @@ xml += `</urlset>\n`;
 const sitemapPath = path.resolve(rootDir, 'client/public/sitemap.xml');
 fs.writeFileSync(sitemapPath, xml, 'utf8');
 
-console.log(`✓ Data-Driven Sitemap generated at ${sitemapPath} with ${staticPages.length + activeSlugs.length} indexable URLs!`);
+console.log(`✓ Reconciled Sitemap generated at ${sitemapPath} with ${staticPages.length + activeSlugs.length} indexable URLs!`);

@@ -1,0 +1,39 @@
+# Environment & Secrets (DO NOT COMMIT SECRETS)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+!.env.example
+
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build & Dist Outputs
+dist/
+client/dist/
+server/dist/
+build/
+
+# Log Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE & Editor Directories
+.vscode/
+.idea/
+
+# Temporary Files & Local Cache
+*.tmp
+*.temp
+.cache/
+.vite/

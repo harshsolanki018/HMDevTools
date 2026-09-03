@@ -9,7 +9,7 @@ const distDir = path.resolve(rootDir, 'client/dist');
 const templatePath = path.resolve(distDir, 'index.html');
 
 console.log('====================================================');
-console.log('🚀 HMDevTools Static Prerender HTML Generator');
+console.log('🚀 HMDevTools Reconciled Static Prerender HTML Generator');
 console.log('====================================================\n');
 
 if (!fs.existsSync(templatePath)) {
@@ -37,6 +37,7 @@ toolBlockMatches.forEach(m => {
 });
 
 const pagesToPrerender = [
+  { route: '', title: 'HMDevTools — Developer tools that just work.', desc: 'Fast, private, practical online developer utilities. Format JSON, convert timestamps, generate UUIDs, encode Base64, debug regex, and more.', h1: 'Developer tools that just work.' },
   { route: '/tools', title: 'All Developer Tools & Utilities — HMDevTools', desc: 'Browse our complete catalog of developer tools: JSON formatters, Base64 encoders, UUID generators, regex testers, and more.' },
   { route: '/categories', title: 'Developer Tool Categories Index — HMDevTools', desc: 'Explore developer utilities categorized by data formats, encodings, web formatters, dates, regex, SQL, and code generators.' },
   { route: '/about', title: 'About HMDevTools — Fast, Private Developer Utilities', desc: 'HMDevTools provides practical, privacy-conscious online developer tools powered by browser-local processing.' },
@@ -45,6 +46,7 @@ const pagesToPrerender = [
   { route: '/faq', title: 'Frequently Asked Questions — HMDevTools', desc: 'Answers to common questions regarding HMDevTools privacy, security, and developer utilities.' },
   { route: '/contact', title: 'Contact Engineering Team — HMDevTools', desc: 'Get in touch with the HMDevTools engineering team for feedback, feature requests, or custom utility inquiries.' },
   { route: '/api', title: 'Developer API Overview — HMDevTools', desc: 'Integrate HMDevTools utility APIs directly into your backend services.' },
+  { route: '/api/docs', title: 'Developer API Documentation — HMDevTools', desc: 'API reference documentation, endpoint specifications, and integration code snippets for HMDevTools services.' },
   { route: '/privacy', title: 'Privacy Policy — HMDevTools', desc: 'HMDevTools privacy policy detailing browser-local computation and zero-tracking commitment.' },
   { route: '/terms', title: 'Terms of Service — HMDevTools', desc: 'HMDevTools terms of service and usage guidelines.' },
   { route: '/cookies', title: 'Cookie Policy — HMDevTools', desc: 'HMDevTools cookie policy.' },
@@ -69,12 +71,18 @@ pagesToPrerender.forEach(p => {
     .replace('<meta name="description" content="Fast, practical, privacy-focused online developer utilities." />', `<meta name="description" content="${p.desc}" />\n    <meta property="og:title" content="${p.title}" />\n    <meta property="og:description" content="${p.desc}" />\n    <link rel="canonical" href="https://hmdevtools.com${p.route}" />`)
     .replace('<div id="root"></div>', `<div id="root"><main style="max-width:1200px;margin:0 auto;padding:2rem 1rem;"><h1>${p.h1 || p.title}</h1><p>${p.desc}</p></main></div>`);
 
-  const relDir = p.route.startsWith('/') ? p.route.slice(1) : p.route;
-  const targetDir = path.resolve(distDir, relDir);
+  let targetPath;
+  if (p.route === '') {
+    targetPath = path.resolve(distDir, 'index.html');
+  } else {
+    const relDir = p.route.startsWith('/') ? p.route.slice(1) : p.route;
+    const targetDir = path.resolve(distDir, relDir);
+    fs.mkdirSync(targetDir, { recursive: true });
+    targetPath = path.resolve(targetDir, 'index.html');
+  }
 
-  fs.mkdirSync(targetDir, { recursive: true });
-  fs.writeFileSync(path.resolve(targetDir, 'index.html'), pageHtml, 'utf8');
+  fs.writeFileSync(targetPath, pageHtml, 'utf8');
   count++;
 });
 
-console.log(`✓ Prerendered ${count} static HTML pages in client/dist/! Crawlers will now receive pre-hydrated HTML markup!`);
+console.log(`✓ Prerendered ${count} static HTML pages in client/dist/! (14 Static Pages + ${activeTools.length} Active Tools)`);
