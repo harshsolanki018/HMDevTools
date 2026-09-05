@@ -1,4 +1,4 @@
-# HMDevTools
+**# HMDevTools
 
 HMDevTools is a privacy-focused collection of developer utilities for working with JSON, encoding, web development, dates, regex, SQL, text, and code conversion.
 
@@ -47,3 +47,4 @@ HMDevTools/
 │
 ├── .gitignore
 └── README.md
+**
