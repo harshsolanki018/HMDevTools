@@ -30,7 +30,7 @@ export const Home = ({ onOpenSearch }) => {
 
       {/* Substantial, Clean Hero Section */}
       <section className="hero-section">
-        <Logo size="large" showWordmark={true} />
+        <Logo size="hero" showWordmark={false} />
         <h1 className="hero-title">Developer tools that just work.</h1>
         <p className="hero-subtitle">
           Fast, practical, and privacy-conscious online utilities for web developers, software engineers, and DevOps.

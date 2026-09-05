@@ -5,13 +5,15 @@ export const Logo = ({ size = 'medium', className = '', showWordmark = true, sho
   const iconSizes = {
     small: '28px',
     medium: '34px',
-    large: '58px' // Moderately larger (~20% increase for Hero/About sections)
+    large: '58px',
+    hero: '70px'
   };
 
   const fontSizes = {
     small: '1.1rem',
     medium: '1.25rem',
-    large: '1.6rem'
+    large: '1.6rem',
+    hero: '1.8rem'
   };
 
   const iconSize = iconSizes[size] || iconSizes.medium;
