@@ -13,11 +13,25 @@ export const submitContact = async (req, res) => {
       });
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (typeof name !== 'string' || name.trim().length > 100) {
       return res.status(400).json({
         success: false,
-        message: 'Please enter a valid email address.'
+        message: 'Name must be a string under 100 characters.'
+      });
+    }
+
+    if (typeof message !== 'string' || message.trim().length > 5000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Message must be a string under 5000 characters.'
+      });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (typeof email !== 'string' || !emailRegex.test(email.trim()) || email.trim().length > 150) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid email address under 150 characters.'
       });
     }
 
@@ -49,7 +63,7 @@ export const submitContact = async (req, res) => {
         id: newMessage._id
       });
     } else {
-      console.log('[Contact Submission (Offline DB Fallback)]', messageData);
+      console.log('[Contact Submission (Offline DB Fallback)] Message received cleanly for topic:', topic);
       return res.status(201).json({
         success: true,
         message: 'Thank you! Your message has been received (processed in offline mode).'

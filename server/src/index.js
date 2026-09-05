@@ -20,23 +20,26 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Security & Optimization Middleware
+// Security Headers & Helmet Configuration
 app.use(helmet({
-  contentSecurityPolicy: false // Allow inline scripts for dev/Vite integration
+  contentSecurityPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
 const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:5173',
+  process.env.CLIENT_URL || 'https://hmdevtools.com',
+  process.env.CORS_ORIGIN || 'https://hmdevtools.com',
+  'http://localhost:5173',
   'http://localhost:3000',
   'http://127.0.0.1:5173'
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
       callback(null, true);
     } else {
-      callback(null, true); // Permissive in dev
+      callback(new Error('CORS Policy: Origin not allowed'));
     }
   },
   credentials: true
@@ -61,19 +64,30 @@ app.get('/', (req, res) => {
 app.use('/api', notFoundHandler);
 app.use(errorHandler);
 
-// Start server
+// Start server with graceful shutdown handling
 const startServer = async () => {
   const isConnected = await connectDB();
   if (isConnected) {
     await seedInitialData();
   }
   
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`\n==================================================`);
     console.log(`🚀 HMDevTools Express Server running on port ${PORT}`);
     console.log(`📡 Health Check: http://localhost:${PORT}/api/v1/health`);
     console.log(`==================================================\n`);
   });
+
+  const handleShutdown = (signal) => {
+    console.log(`\nReceived ${signal}. Shutting down gracefully...`);
+    server.close(() => {
+      console.log('HTTP server closed cleanly.');
+      process.exit(0);
+    });
+  };
+
+  process.on('SIGTERM', () => handleShutdown('SIGTERM'));
+  process.on('SIGINT', () => handleShutdown('SIGINT'));
 };
 
 startServer();

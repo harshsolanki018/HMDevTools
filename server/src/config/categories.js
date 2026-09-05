@@ -81,8 +81,8 @@ export const CATEGORIES = [
   }
 ];
 
-export const categoriesRegistry = CATEGORIES;
-
-export const getCategoryBySlug = (slug) => {
-  return categoriesRegistry.find(c => c.slug === slug || c.id === slug);
-};
+export const CATEGORY_MAP = CATEGORIES.reduce((acc, cat) => {
+  acc[cat.id] = cat;
+  acc[cat.slug] = cat;
+  return acc;
+}, {});

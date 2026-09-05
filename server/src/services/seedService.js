@@ -1,6 +1,6 @@
 import Category from '../models/Category.js';
 import Tool from '../models/Tool.js';
-import { CATEGORIES } from '../../../shared/categories.js';
+import { CATEGORIES } from '../config/categories.js';
 
 export const seedInitialData = async () => {
   try {
