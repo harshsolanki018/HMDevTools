@@ -20,7 +20,7 @@ export const Header = ({ onOpenSearch }) => {
         <div className="header-inner">
           <div className="header-left">
             <Link to="/" aria-label="HMDevTools Home">
-              <Logo size="small" />
+              <Logo size="small" showWordmark={true} />
             </Link>
           </div>
 

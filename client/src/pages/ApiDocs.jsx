@@ -21,7 +21,7 @@ export const ApiDocs = () => {
         description="Technical reference and live testing for HMDevTools REST API endpoints."
       />
 
-      <div className="section-container" style={{ maxWidth: '900px' }}>
+      <div className="section-container" style={{ maxWidth: '900px', padding: '1.25rem 1rem 3rem 1rem' }}>
         <Breadcrumbs items={[{ label: 'API', to: '/api' }, { label: 'Documentation' }]} />
 
         <div style={{ marginBottom: '2rem' }}>
@@ -31,7 +31,9 @@ export const ApiDocs = () => {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div>
-            <h2 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '0.75rem' }}>Live Endpoint Response: GET /api/v1/health</h2>
+            <h2 style={{ fontSize: '1.15rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--text-main)' }}>
+              Live Endpoint Response: GET /api/v1/health
+            </h2>
             <CodeEditorPanel
               title="Live Response Payload"
               value={healthData}

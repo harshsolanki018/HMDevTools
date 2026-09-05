@@ -15,7 +15,7 @@ export const About = () => {
       <div className="section-container" style={{ maxWidth: '800px' }}>
         <Breadcrumbs items={[{ label: 'About' }]} />
 
-        <Logo size="large" />
+        <Logo size="large" showWordmark={true} />
         <h1 className="section-title" style={{ marginTop: '1rem' }}>About HMDevTools</h1>
         <p className="section-desc" style={{ fontSize: '1.1rem', marginBottom: '2rem' }}>
           HMDevTools is a developer utility platform focused on delivering fast, practical, and privacy-conscious web tools.

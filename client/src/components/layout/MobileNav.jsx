@@ -22,7 +22,7 @@ export const MobileNav = ({ isOpen, onClose }) => {
     <div className="mobile-drawer" onClick={onClose}>
       <div className="mobile-drawer-content" onClick={(e) => e.stopPropagation()}>
         <div className="mobile-drawer-header">
-          <Logo size="small" />
+          <Logo size="small" showWordmark={true} />
           <button className="theme-toggle-btn" onClick={onClose} aria-label="Close menu">
             <X size={18} />
           </button>

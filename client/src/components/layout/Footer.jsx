@@ -10,15 +10,11 @@ export const Footer = () => {
         <div className="footer-top">
           <div className="footer-brand">
             <Link to="/" aria-label="HMDevTools Home">
-              <Logo size="medium" />
+              <Logo size="medium" showWordmark={true} />
             </Link>
             <p className="footer-desc">
               Fast, practical, and privacy-conscious developer utilities. Tools run locally in your browser wherever practical.
             </p>
-            <div className="status-badge">
-              <span className="status-dot"></span>
-              All Systems Operational
-            </div>
           </div>
 
           <div>

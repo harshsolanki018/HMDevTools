@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { resourcesRegistry } from '@/registry/resources';
 
 export const Resources = () => {
   return (
-    <div className="container" style={{ paddingTop: '2.5rem', paddingBottom: '4rem' }}>
+    <div className="section-container" style={{ paddingTop: '1.25rem', paddingBottom: '4rem' }}>
       <Helmet>
         <title>Developer Guides & Reference Cheat Sheets | HMDevTools</title>
         <meta name="description" content="Explore comprehensive developer cheat sheets and technical references for JSON, HTTP status codes, Regex patterns, Cron schedules, Base64, and Web Development." />
@@ -13,6 +14,8 @@ export const Resources = () => {
         <meta property="og:title" content="Developer Guides & Reference Cheat Sheets | HMDevTools" />
         <meta property="og:description" content="Explore comprehensive developer cheat sheets and technical references for JSON, HTTP status codes, Regex patterns, Cron schedules, Base64, and Web Development." />
       </Helmet>
+
+      <Breadcrumbs items={[{ label: 'Resources' }]} />
 
       <div style={{ maxWidth: '800px', marginBottom: '2.5rem' }}>
         <h1 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.75rem', color: 'var(--text-main)' }}>

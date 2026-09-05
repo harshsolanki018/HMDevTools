@@ -4,11 +4,13 @@
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 4rem 1rem;
   animation: fadeIn 0.15s ease;
+  transform: translateZ(0);
 }
 
 .search-modal {
@@ -22,6 +24,8 @@
   display: flex;
   flex-direction: column;
   max-height: 80vh;
+  transform: translateZ(0);
+  contain: layout style;
 }
 
 .search-input-wrapper {
@@ -53,6 +57,7 @@
   padding: 0.5rem;
   list-style: none;
   max-height: 480px;
+  contain: layout style;
 }
 
 .search-result-item {
@@ -63,7 +68,7 @@
   border-radius: var(--radius-md);
   color: var(--text-main);
   text-decoration: none;
-  transition: background 0.15s ease;
+  transition: none;
 }
 
 .search-result-item:hover, .search-result-item.selected {

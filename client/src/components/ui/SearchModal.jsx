@@ -1,55 +1,93 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, ArrowRight, CornerDownLeft, BookOpen, Wrench, Folder } from 'lucide-react';
 import { toolsRegistry } from '../../registry/tools';
 import { resourcesRegistry } from '../../registry/resources';
 import './SearchModal.css';
 
+// Precomputed static search index to avoid recalculations on every keystroke
+const CATEGORY_ITEMS = [
+  { title: 'JSON & Data Category', desc: 'Browse all tools in JSON & Data', url: '/categories', type: 'category', icon: Folder, searchString: 'json & data category browse all tools in json & data json-data' },
+  { title: 'Encoding & Decoding Category', desc: 'Browse all tools in Encodings & Decodings', url: '/categories', type: 'category', icon: Folder, searchString: 'encoding & decoding category browse all tools in encodings & decodings encoding' },
+  { title: 'Generators Category', desc: 'Browse all tools in Generators', url: '/categories', type: 'category', icon: Folder, searchString: 'generators category browse all tools in generators generators' },
+  { title: 'Web & Formatting Category', desc: 'Browse all tools in Web & Formatting', url: '/categories', type: 'category', icon: Folder, searchString: 'web & formatting category browse all tools in web & formatting web-dev' },
+  { title: 'Dates & Time Category', desc: 'Browse all tools in Dates & Time', url: '/categories', type: 'category', icon: Folder, searchString: 'dates & time category browse all tools in dates & time dates-time' },
+  { title: 'Regular Expressions Category', desc: 'Browse all tools in Regular Expressions', url: '/categories', type: 'category', icon: Folder, searchString: 'regular expressions category browse all tools in regular expressions regex' },
+  { title: 'SQL & Databases Category', desc: 'Browse all tools in SQL & Databases', url: '/categories', type: 'category', icon: Folder, searchString: 'sql & databases category browse all tools in sql & databases sql-databases' },
+  { title: 'Text Utilities Category', desc: 'Browse all tools in Text Utilities', url: '/categories', type: 'category', icon: Folder, searchString: 'text utilities category browse all tools in text utilities text-utilities' },
+  { title: 'Code Conversion Category', desc: 'Browse all tools in Code Conversion', url: '/categories', type: 'category', icon: Folder, searchString: 'code conversion category browse all tools in code conversion code-conversion' }
+];
+
+const PRECOMPUTED_SEARCH_INDEX = [
+  ...toolsRegistry
+    .filter(t => t.status === 'active')
+    .map(t => ({
+      title: t.name,
+      desc: t.description,
+      url: `/tools/${t.slug}`,
+      type: 'tool',
+      icon: Wrench,
+      searchString: `${t.name} ${t.description} ${(t.keywords || []).join(' ')} ${t.slug}`.toLowerCase()
+    })),
+  ...resourcesRegistry.map(r => ({
+    title: r.title,
+    desc: r.shortDescription,
+    url: `/resources/${r.slug}`,
+    type: 'resource',
+    icon: BookOpen,
+    searchString: `${r.title} ${r.shortDescription} ${r.category} ${r.slug}`.toLowerCase()
+  })),
+  ...CATEGORY_ITEMS
+];
+
 export const SearchModal = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
+  // Reset modal state when opened or closed
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
+      setTimeout(() => inputRef.current?.focus(), 30);
       setQuery('');
+      setDebouncedQuery('');
       setSelectedIndex(0);
     }
   }, [isOpen]);
 
-  const categories = [
-    { name: 'JSON & Data', slug: 'json-data', type: 'category', url: '/categories' },
-    { name: 'Encodings & Decodings', slug: 'encoding', type: 'category', url: '/categories' },
-    { name: 'Generators', slug: 'generators', type: 'category', url: '/categories' },
-    { name: 'Web & Formatting', slug: 'web-dev', type: 'category', url: '/categories' },
-    { name: 'Dates & Time', slug: 'dates-time', type: 'category', url: '/categories' },
-    { name: 'Regular Expressions', slug: 'regex', type: 'category', url: '/categories' },
-    { name: 'SQL & Databases', slug: 'sql-databases', type: 'category', url: '/categories' },
-    { name: 'Text Utilities', slug: 'text-utilities', type: 'category', url: '/categories' },
-    { name: 'Code Conversion', slug: 'code-conversion', type: 'category', url: '/categories' }
-  ];
+  // 2000ms Debounce Timer for Search Filtering
+  useEffect(() => {
+    if (!query.trim()) {
+      setDebouncedQuery('');
+      return;
+    }
 
-  const q = query.toLowerCase().trim();
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query);
+      setSelectedIndex(0);
+    }, 2000); // 2000ms delay after user stops typing
 
-  // 1. Tool matches
-  const toolResults = toolsRegistry
-    .filter(t => t.status === 'active')
-    .filter(t => !q || t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) || t.keywords.some(k => k.toLowerCase().includes(q)))
-    .map(t => ({ title: t.name, desc: t.description, url: `/tools/${t.slug}`, type: 'tool', icon: Wrench }));
+    return () => clearTimeout(timer);
+  }, [query]);
 
-  // 2. Resource matches
-  const resourceResults = resourcesRegistry
-    .filter(r => !q || r.title.toLowerCase().includes(q) || r.shortDescription.toLowerCase().includes(q) || r.category.toLowerCase().includes(q))
-    .map(r => ({ title: r.title, desc: r.shortDescription, url: `/resources/${r.slug}`, type: 'resource', icon: BookOpen }));
+  const q = useMemo(() => debouncedQuery.toLowerCase().trim(), [debouncedQuery]);
 
-  // 3. Category matches
-  const categoryResults = categories
-    .filter(c => q && c.name.toLowerCase().includes(q))
-    .map(c => ({ title: `${c.name} Category`, desc: `Browse all tools in ${c.name}`, url: c.url, type: 'category', icon: Folder }));
-
-  const combinedResults = [...toolResults, ...resourceResults, ...categoryResults].slice(0, 10);
+  const combinedResults = useMemo(() => {
+    if (!q) {
+      return PRECOMPUTED_SEARCH_INDEX.slice(0, 10);
+    }
+    const matches = [];
+    for (let i = 0; i < PRECOMPUTED_SEARCH_INDEX.length; i++) {
+      const item = PRECOMPUTED_SEARCH_INDEX[i];
+      if (item.searchString.includes(q)) {
+        matches.push(item);
+        if (matches.length >= 10) break; // Early exit once top 10 matches are found
+      }
+    }
+    return matches;
+  }, [q]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') {
@@ -84,7 +122,6 @@ export const SearchModal = ({ isOpen, onClose }) => {
             value={query}
             onChange={e => {
               setQuery(e.target.value);
-              setSelectedIndex(0);
             }}
           />
           <button className="theme-toggle-btn" onClick={onClose} aria-label="Close search">
@@ -106,7 +143,6 @@ export const SearchModal = ({ isOpen, onClose }) => {
                       navigate(item.url);
                       onClose();
                     }}
-                    onMouseEnter={() => setSelectedIndex(idx)}
                   >
                     <div className="result-info">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -125,7 +161,7 @@ export const SearchModal = ({ isOpen, onClose }) => {
             })
           ) : (
             <div className="empty-search">
-              No matching tools, categories, or resources found for "{query}".
+              No matching tools, categories, or resources found for "{debouncedQuery}".
             </div>
           )}
         </ul>

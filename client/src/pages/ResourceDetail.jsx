@@ -9,7 +9,7 @@ export const ResourceDetail = () => {
 
   if (!resource) {
     return (
-      <div className="container" style={{ paddingTop: '3rem', paddingBottom: '4rem', textAlign: 'center' }}>
+      <div className="section-container" style={{ paddingTop: '3rem', paddingBottom: '4rem', textAlign: 'center' }}>
         <h1 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--text-main)' }}>Resource Not Found</h1>
         <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>The requested developer reference guide does not exist.</p>
         <Link to="/resources" style={{ color: 'var(--accent-primary)', fontWeight: 600, textDecoration: 'none' }}>← Return to All Resources</Link>
@@ -31,7 +31,7 @@ export const ResourceDetail = () => {
   };
 
   return (
-    <div className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
+    <div className="section-container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
       <Helmet>
         <title>{resource.seoTitle}</title>
         <meta name="description" content={resource.seoDescription} />
