@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SEOHead from '@/components/seo/SEOHead';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
+import { API_BASE_URL } from '@/config/api';
 import '@/pages/Home.css';
 
 export const Contact = () => {
@@ -17,7 +18,7 @@ export const Contact = () => {
     setStatus({ loading: true, success: null, error: null });
 
     try {
-      const response = await fetch('/api/v1/contact', {
+      const response = await fetch(`${API_BASE_URL}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import SEOHead from '@/components/seo/SEOHead';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import CodeEditorPanel from '@/components/tools/CodeEditorPanel';
+import { API_BASE_URL } from '@/config/api';
 import '@/pages/Home.css';
 
 export const ApiDocs = () => {
-  const [healthData, setHealthData] = useState('Loading live /api/v1/health status...');
+  const [healthData, setHealthData] = useState('Loading live health status...');
 
   useEffect(() => {
-    fetch('/api/v1/health')
+    fetch(`${API_BASE_URL}/health`)
       .then(res => res.json())
       .then(data => setHealthData(JSON.stringify(data, null, 2)))
       .catch(err => setHealthData(JSON.stringify({ status: 'offline', message: err.message }, null, 2)));

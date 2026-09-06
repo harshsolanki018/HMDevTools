@@ -2,10 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/seo/SEOHead';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
+import { API_BASE_URL } from '@/config/api';
 import '@/pages/Home.css';
 
 export const ApiOverview = () => {
-  const apiBaseUrl = typeof window !== 'undefined' ? `${window.location.origin}/api/v1` : 'https://hmdevtools.com/api/v1';
+  const apiBaseUrl = API_BASE_URL.startsWith('http')
+    ? API_BASE_URL
+    : (typeof window !== 'undefined' ? `${window.location.origin}${API_BASE_URL}` : `https://hmdevtools.com${API_BASE_URL}`);
 
   return (
     <>
