@@ -20,7 +20,7 @@ const toolSchema = new mongoose.Schema(
       default: 'client' 
     },
     isPopular: { type: Boolean, default: false },
-    isNew: { type: Boolean, default: false },
+    isNewTool: { type: Boolean, default: false },
     seoTitle: { type: String },
     seoDescription: { type: String }
   },

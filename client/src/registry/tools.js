@@ -829,7 +829,7 @@ export const toolsRegistry = [
     relatedKeywords: ['convert timezones online', 'global timezone converter'],
     status: 'active',
     processingMode: 'client',
-    isNew: true,
+    isNewTool: true,
     component: 'TimezoneConverter',
     seoTitle: 'Timezone Converter Online | HMDevTools',
     seoDescription: 'Convert date and time values across major world timezones locally in your browser.',
@@ -905,7 +905,7 @@ export const toolsRegistry = [
     relatedKeywords: ['explain regex pattern', 'regular expression breakdown'],
     status: 'active',
     processingMode: 'client',
-    isNew: true,
+    isNewTool: true,
     component: 'RegexExplainer',
     seoTitle: 'Regex Explainer (Pattern Breakdown) | HMDevTools',
     seoDescription: 'Parse regular expression string patterns and explain character classes, anchors, and quantifiers in plain English.',
@@ -957,7 +957,7 @@ export const toolsRegistry = [
     relatedKeywords: ['compress SQL statement', 'single line SQL converter'],
     status: 'active',
     processingMode: 'client',
-    isNew: true,
+    isNewTool: true,
     component: 'SqlMinifier',
     seoTitle: 'SQL Minifier & Query Compressor Online | HMDevTools',
     seoDescription: 'Compress SQL query statements to single-line strings by stripping unneeded comments and whitespace.',
@@ -1080,7 +1080,7 @@ export const toolsRegistry = [
     relatedKeywords: ['strip extra spaces', 'clean duplicate whitespace'],
     status: 'active',
     processingMode: 'client',
-    isNew: true,
+    isNewTool: true,
     component: 'WhitespaceCleaner',
     seoTitle: 'Whitespace Cleaner & Space Trimmer | HMDevTools',
     seoDescription: 'Clean up extra whitespace, leading/trailing spaces, and duplicate blank lines from text snippets locally.',
@@ -1132,7 +1132,7 @@ export const toolsRegistry = [
     relatedKeywords: ['convert JSON to Python Dataclass', 'generate Python class'],
     status: 'active',
     processingMode: 'client',
-    isNew: true,
+    isNewTool: true,
     component: 'JsonToPython',
     seoTitle: 'JSON to Python Dataclass Converter | HMDevTools',
     seoDescription: 'Convert JSON payloads into Python 3 Dataclass models and type-annotated code in your browser.',
@@ -1156,7 +1156,7 @@ export const toolsRegistry = [
     relatedKeywords: ['convert JSON to Go struct', 'generate Go struct'],
     status: 'active',
     processingMode: 'client',
-    isNew: true,
+    isNewTool: true,
     component: 'JsonToGo',
     seoTitle: 'JSON to Go Struct Generator | HMDevTools',
     seoDescription: 'Convert JSON objects into idiomatic Go struct types with json struct field tags.',
@@ -1230,5 +1230,5 @@ export const getPopularTools = () => {
 };
 
 export const getNewTools = () => {
-  return toolsRegistry.filter(t => t.isNew);
+  return toolsRegistry.filter(t => t.isNewTool || t.isNew);
 };

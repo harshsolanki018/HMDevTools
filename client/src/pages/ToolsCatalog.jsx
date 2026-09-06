@@ -30,7 +30,7 @@ export const ToolsCatalog = () => {
       const matchesFilter =
         initialFilter === 'all' ||
         (initialFilter === 'popular' && tool.isPopular) ||
-        (initialFilter === 'new' && tool.isNew);
+        (initialFilter === 'new' && (tool.isNewTool || tool.isNew));
 
       return matchesSearch && matchesCategory && matchesFilter;
     }).sort((a, b) => {
