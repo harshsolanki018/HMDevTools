@@ -6,7 +6,7 @@ HMDevTools is a web-based developer toolkit providing 50 practical utilities for
 
 The core tools are designed to process input directly in the browser, keeping tool data on the user's device instead of sending it to a processing server.
 
-**Live:** https://hmdevtools.com
+**Live:** https://www.hmdevtools.ryzn.pro
 
 ---
 
