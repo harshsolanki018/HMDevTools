@@ -2,39 +2,38 @@
 
 **Fast, privacy-focused developer tools for everyday engineering work.**
 
-HMDevTools is a web-based developer toolkit providing 50 practical utilities for JSON, encoding, web development, dates, regex, SQL, text processing, and code conversion.
+[Live Website](https://www.hmdevtools.ryzn.pro)
 
-The core tools are designed to process input directly in the browser, keeping tool data on the user's device instead of sending it to a processing server.
+HMDevTools is a web-based developer toolkit that brings **50 practical utilities** into one consistent workspace. It helps developers quickly handle JSON, encoding, web development, dates, regular expressions, SQL, text processing, code conversion, and other common engineering tasks.
 
-**Live:** https://www.hmdevtools.ryzn.pro
-
----
-
-## Why HMDevTools?
-
-Developers constantly need small utilities:
-
-* Format an API response
-* Validate or minify JSON
-* Decode a JWT
-* Encode a URL or Base64 value
-* Test a regular expression
-* Format SQL
-* Convert timestamps
-* Compare text
-* Convert JSON into programming-language types
-* Clean whitespace
-* Generate UUIDs or hashes
-
-Instead of searching for a different website for every task, HMDevTools brings these utilities together in one consistent developer workspace.
+Instead of switching between multiple websites for small development tasks, HMDevTools provides a centralized collection of lightweight utilities designed for speed, simplicity, and privacy.
 
 ---
 
-## Features
+## ✨ Why HMDevTools?
+
+Developers regularly need small utilities for tasks such as:
+
+* Formatting and validating JSON
+* Encoding and decoding Base64 or URLs
+* Inspecting JWTs
+* Testing regular expressions
+* Formatting and minifying SQL
+* Converting timestamps
+* Comparing text
+* Converting JSON into programming-language types
+* Cleaning text and whitespace
+* Generating UUIDs and hashes
+
+HMDevTools brings these everyday utilities together in a single developer-focused workspace.
+
+---
+
+## 🚀 Key Features
 
 ### 50 Developer Tools
 
-HMDevTools currently provides 50 operational tools across multiple categories.
+HMDevTools currently provides **50 operational developer tools** across **10 categories**:
 
 | Category            |  Tools |
 | ------------------- | -----: |
@@ -50,91 +49,9 @@ HMDevTools currently provides 50 operational tools across multiple categories.
 | Code Conversion     |      5 |
 | **Total**           | **50** |
 
-### Developer Resources
-
-The project also includes six technical reference guides:
-
-* JSON Syntax Cheat Sheet
-* HTTP Status Codes Reference
-* Regex Cheat Sheet
-* Cron Expression Cheat Sheet
-* Encoding Cheat Sheet
-* Web Developer Cheat Sheet
-
-Each resource connects related concepts with the appropriate HMDevTools utilities.
-
 ---
 
-## Privacy by Architecture
-
-Privacy is one of the core design principles of HMDevTools.
-
-The operational developer tools perform their calculations locally using JavaScript in the browser.
-
-For example:
-
-```text
-User Input
-    ↓
-Browser
-    ↓
-Local JavaScript Processing
-    ↓
-Result
-```
-
-Tool input does not need to be uploaded to a processing API.
-
-This is particularly useful when working with:
-
-* Internal API responses
-* Development configuration
-* JSON containing customer information
-* JWTs and tokens
-* Logs
-* SQL queries
-* Private code snippets
-* Production debugging data
-
-Users should still follow their organization's security policies and should never expose secrets unnecessarily.
-
----
-
-## Who Is HMDevTools For?
-
-HMDevTools is designed for anyone who regularly works with developer data and technical formats.
-
-### Software Developers
-
-Useful for everyday development tasks such as JSON formatting, encoding, conversion, regex testing, and text comparison.
-
-### Frontend Developers
-
-Useful for HTML, CSS, JavaScript, Markdown, URL, and browser-oriented utilities.
-
-### Backend Developers
-
-Useful for JSON, JWT, Base64, timestamps, SQL, hashing, URLs, and API debugging.
-
-### DevOps & Cloud Engineers
-
-Useful for timestamps, cron expressions, encoding, configuration data, JSON, and text processing.
-
-### QA & Test Engineers
-
-Useful for regex testing, text diffing, data conversion, validation, and generating test values.
-
-### Students & Learners
-
-Useful as a collection of quick references and practical tools for learning web development and programming concepts.
-
-### Technical Teams
-
-Useful as a lightweight shared utility collection for repetitive development tasks.
-
----
-
-## Tool Categories
+## 🧰 Available Tools
 
 ### JSON & Data
 
@@ -219,7 +136,127 @@ Useful as a lightweight shared utility collection for repetitive development tas
 
 ---
 
-## Technology Stack
+## 🔐 Privacy-First Architecture
+
+Privacy is a core design principle of HMDevTools.
+
+The operational developer tools perform their processing directly in the user's browser using client-side JavaScript.
+
+```text
+User Input
+    ↓
+Browser
+    ↓
+Local JavaScript Processing
+    ↓
+Result
+```
+
+This means tool input does not need to be uploaded to a processing API.
+
+This architecture is particularly useful when working with:
+
+* Internal API responses
+* Development configuration
+* JSON containing customer information
+* JWTs and tokens
+* Logs
+* SQL queries
+* Private code snippets
+* Production debugging data
+
+Users should still follow their organization's security policies and avoid exposing secrets unnecessarily.
+
+---
+
+## 📚 Developer Reference Guides
+
+HMDevTools also includes **six technical reference guides** designed to complement the tools:
+
+* JSON Syntax Cheat Sheet
+* HTTP Status Codes Reference
+* Regex Cheat Sheet
+* Cron Expression Cheat Sheet
+* Encoding Cheat Sheet
+* Web Developer Cheat Sheet
+
+These resources connect common development concepts with the relevant HMDevTools utilities.
+
+---
+
+## 👨‍💻 Who Is HMDevTools For?
+
+### Software Developers
+
+Useful for everyday development tasks such as JSON formatting, encoding, conversion, regex testing, and text comparison.
+
+### Frontend Developers
+
+Useful for HTML, CSS, JavaScript, Markdown, URL, and browser-oriented utilities.
+
+### Backend Developers
+
+Useful for JSON, JWT, Base64, timestamps, SQL, hashing, URLs, and API debugging.
+
+### DevOps & Cloud Engineers
+
+Useful for timestamps, cron expressions, encoding, configuration data, JSON, and text processing.
+
+### QA & Test Engineers
+
+Useful for regex testing, text comparison, data conversion, validation, and generating test values.
+
+### Students & Learners
+
+Useful for learning programming and web-development concepts through practical tools and technical references.
+
+### Technical Teams
+
+Useful as a lightweight shared collection of utilities for repetitive development tasks.
+
+---
+
+## 🖥️ User Experience
+
+HMDevTools is designed around a simple developer-focused workflow:
+
+* Fast access to commonly used utilities
+* Consistent interface across tools
+* Clear input and output areas
+* Convenient copy functionality
+* Support for empty, invalid, and large inputs
+* Unicode-aware processing
+* Keyboard-accessible controls
+* Global tool search
+* Responsive layouts for different screen sizes
+
+The application is designed to work across:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile devices
+
+---
+
+## 🛡️ Security
+
+The application includes multiple backend and application-level security controls, including:
+
+* Helmet security headers
+* Content Security Policy
+* CORS restrictions
+* API rate limiting
+* Request body size limits
+* Input validation
+* Production error handling
+* IP hashing for applicable contact-form processing
+
+Secrets and environment files are excluded from the Git repository.
+
+---
+
+## ⚙️ Technology Stack
 
 ### Frontend
 
@@ -248,27 +285,72 @@ Useful as a lightweight shared utility collection for repetitive development tas
                          │      HMDevTools      │
                          └──────────┬───────────┘
                                     │
-                    ┌───────────────┴───────────────┐
-                    │                               │
-             ┌──────▼──────┐                ┌──────▼──────┐
-             │   Client    │                │   Server    │
-             │ React/Vite  │                │ Node/Express│
-             └──────┬──────┘                └──────┬──────┘
-                    │                               │
-          Tool processing                   API / Application
-          happens locally                         services
-                    │                               │
-                    ▼                               ▼
-              Browser memory                    MongoDB
+                   ┌────────────────┴────────────────┐
+                   │                                 │
+            ┌──────▼──────┐                   ┌──────▼──────┐
+            │   Client    │                   │   Server    │
+            │ React/Vite  │                   │ Node/Express│
+            └──────┬──────┘                   └──────┬──────┘
+                   │                                 │
+          Local tool processing              API / Application
+                   │                                 │
+                   ▼                                 ▼
+            Browser memory                       MongoDB
 ```
 
-The backend does not need to process the contents entered into the client-side developer tools.
+The client-side developer tools process their operational input locally rather than requiring the backend to process that content.
 
 ---
 
-## Project Structure
+## 🔎 SEO & Discoverability
 
-The repository intentionally keeps the root minimal.
+HMDevTools includes production-oriented SEO infrastructure:
+
+* Unique page titles
+* Meta descriptions
+* Canonical URLs
+* Open Graph metadata
+* Twitter metadata
+* JSON-LD structured data
+* XML sitemap
+* Prerendered HTML pages
+* Developer reference resources
+
+The project is structured to make individual tools and reference resources discoverable through search engines.
+
+---
+
+## ✅ Testing & Quality Verification
+
+HMDevTools has undergone verification across the application's core functionality and production infrastructure.
+
+Testing and verification covered:
+
+* All 50 operational tools
+* Valid inputs
+* Invalid inputs
+* Empty inputs
+* Sample inputs
+* Clear functionality
+* Copy functionality
+* Unicode inputs
+* Large inputs
+* Frontend routes
+* SEO metadata
+* Sitemap integrity
+* Prerendered pages
+* Security configuration
+* Privacy behavior
+* Production builds
+* Git repository hygiene
+
+The project was also verified after repository cleanup to ensure that the client and server remain self-contained.
+
+---
+
+## 🧹 Repository Structure
+
+The repository intentionally maintains a minimal structure:
 
 ```text
 HMDevTools/
@@ -287,198 +369,6 @@ HMDevTools/
 └── README.md
 ```
 
-Client and server maintain their own dependencies and package configuration.
-
----
-
-## Getting Started
-
-### Requirements
-
-* Node.js
-* npm
-* MongoDB for backend features that require database access
-
-### Clone
-
-```bash
-git clone <repository-url>
-cd HMDevTools
-```
-
-### Install Client
-
-```bash
-cd client
-npm install
-```
-
-### Install Server
-
-Open another terminal:
-
-```bash
-cd server
-npm install
-```
-
-### Environment Variables
-
-Create a local environment file inside `server/`:
-
-```text
-server/.env
-```
-
-Configure the required values for your environment.
-
-Example:
-
-```env
-PORT=5000
-NODE_ENV=development
-MONGODB_URI=your_mongodb_connection_string
-CLIENT_URL=http://localhost:5173
-CORS_ORIGIN=http://localhost:5173
-JWT_SECRET=your_secret
-```
-
-Never commit `.env` files or production credentials.
-
-### Run the Client
-
-```bash
-cd client
-npm run dev
-```
-
-### Run the Server
-
-```bash
-cd server
-npm start
-```
-
-Refer to the individual `package.json` files for the exact available scripts.
-
----
-
-## Production
-
-The frontend is built as a production Vite application.
-
-```bash
-cd client
-npm run build
-```
-
-Production output:
-
-```text
-client/dist/
-```
-
-The frontend can be hosted on a static hosting/CDN platform.
-
-The backend can be deployed independently to a Node.js-compatible hosting platform.
-
-Production environment variables should be configured through the hosting provider rather than committed to the repository.
-
----
-
-## SEO
-
-HMDevTools includes production SEO infrastructure including:
-
-* Unique page titles
-* Meta descriptions
-* Canonical URLs
-* OpenGraph metadata
-* Twitter metadata
-* JSON-LD structured data
-* XML sitemap
-* Prerendered HTML pages
-* Developer reference resources
-
-The production domain is:
-
-```text
-https://hmdevtools.com
-```
-
----
-
-<<<<<<< HEAD
-## 🔐 Client-Side Privacy Architecture
-All developer tool calculations (JSON formatting, Base64/JWT encoding, Regex testing, Hash generation, SQL formatting) execute 100% locally in your browser's JavaScript engine. No payload data is ever sent to backend servers.
-=======
-## Accessibility & Responsive Design
-
-The interface is designed to work across:
-
-* Desktop
-* Laptop
-* Tablet
-* Mobile devices
-
-The application includes keyboard-accessible controls and keyboard navigation for global search.
-
----
-
-## Security
-
-The backend includes security controls such as:
-
-* Helmet security headers
-* Content Security Policy
-* CORS restrictions
-* API rate limiting
-* Request body size limits
-* Input validation
-* Production error handling
-* IP hashing for applicable contact-form processing
-
-Secrets and environment files are excluded from Git through `.gitignore`.
-
----
-
-## Testing
-
-The project has undergone comprehensive verification covering:
-
-* 50 operational tools
-* Valid inputs
-* Invalid inputs
-* Empty inputs
-* Sample inputs
-* Clear functionality
-* Copy functionality
-* Unicode inputs
-* Large inputs
-* Frontend routes
-* SEO metadata
-* Sitemap integrity
-* Prerendered pages
-* Security configuration
-* Privacy behavior
-* Production builds
-* Git repository hygiene
-
-The post-cleanup verification confirmed that the client and server are self-contained and no longer depend on the removed root `shared/`, `scratch/`, or documentation directories.
-
----
-
-## Repository Hygiene
-
-The GitHub repository intentionally contains only the project files required for development and deployment:
-
-```text
-client/
-server/
-.gitignore
-README.md
-```
-
 The repository does not intentionally track:
 
 * `node_modules/`
@@ -492,28 +382,22 @@ The repository does not intentionally track:
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 
-Potential future improvements include:
+Future improvements may include:
 
 * Additional developer utilities
 * More programming-language converters
 * Additional technical reference guides
 * Improved tool presets
 * Advanced keyboard shortcuts
-* Tool usage analytics that preserve input privacy
+* Privacy-preserving tool usage analytics
 * Progressive Web App capabilities
-* Offline support for more tools
+* Expanded offline support
 
 ---
 
-## License
-
-Add the project's chosen license here.
-
----
-
-## Project Status
+## 📊 Project Status
 
 **Production-ready and deployed for public use.**
 
@@ -526,7 +410,12 @@ HMDevTools currently provides:
 * React + Vite frontend
 * Node.js + Express backend
 * MongoDB integration
-* Production SEO and security configuration
+* Production SEO infrastructure
+* Security controls
+* Responsive and accessible user experience
 
-Built to make everyday developer tasks faster, simpler, and more privacy-conscious.
->>>>>>> da8c5b2b95dfd32ad7223d212d7b606ae7c34916
+---
+
+### Built for Developers
+
+**HMDevTools makes everyday developer tasks faster, simpler, and more privacy-conscious — all from one unified toolkit.**
